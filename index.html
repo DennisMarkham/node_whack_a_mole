@@ -1,0 +1,53 @@
+<head>
+<style>
+	img {
+		width: 200px;
+	}
+
+	@media only screen and (max-width: 1000px)
+	{
+		img
+		{
+			width: 100px;
+		}
+	}
+
+	#gameBoard
+	{
+		cursor: url("hammer.cur"), auto !important;
+
+	}
+
+
+</style>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+<script src = "script.js"></script>
+</head>
+<body>
+<p>Timer: <span id = "timer">0</span></p>
+<p>Start Game:</p>
+<button onClick = "beginGame()" class = "begin">Infinite Time</button><button id = "stop" disabled>Stop</button>
+<br>
+<br>
+<br>
+<div id = "gameBoard">
+<img id = "im1" src = "hole.png"><img id = "im2" src = "hole.png"><img id = "im3" src = "hole.png"><br>
+<img id = "im4" src = "hole.png"><img id = "im5" src = "hole.png"><img id = "im6" src = "hole.png"><br>
+<img id = "im7" src = "hole.png"><img id = "im8" src = "hole.png"><img id = "im9" src = "hole.png"><br>
+</div>
+score:<span id = "score">0</span>
+<div id = "scores"></div>
+<script>
+	function showScores(){
+		$.get("/showScores", function(data){
+           for (let x in data)
+			{
+				$("#scores").append(data[x].player);
+			}
+		})
+	}
+
+	showScores();
+
+</script>
+</body>
