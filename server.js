@@ -28,9 +28,7 @@ showScores();
 
 async function showScores(){
 
-//this does show up because of "CORS".  Just freaking great.  Why does this trigger a CORS thing, but 
-//not the other one?  Does ti work becausethe other one is a form request?  But a simple window.location.href 
-//thing worked in mongo_dogs
+
 const schema = new mongoose.Schema({player: String});
 
 const Scores = mongoose.model("Score", schema);
