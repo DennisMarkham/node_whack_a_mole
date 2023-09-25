@@ -39,7 +39,7 @@ async function showScores(){
 
 //let newScores = new Score({player: data.username})
 
-await Scores.find({}).then((data) => res.json(data));
+await Scores.find({}).sort({_id: -1}).limit(5).then((data) => res.json(data));
 }
 
 })
