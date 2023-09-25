@@ -61,26 +61,31 @@ let scoreData =
 {
 playerName: newPlayer,
 score: score,
-time: time
+time: time,
+sps: (score/time).toFixed(2)
 }
 
 if (newPlayer != null){
 	$.post("/newScore", scoreData)
 }
 
+
+
+//Okay, weird, there's a bug that causes the post not to fire if I have this location.reload.  This was 
+//supposed to be my solution to get scores to update automatically but its not working.
+//location.reload();
+
 score = 0;
 time = 0;
+$("img").attr("src", "hole.png");
+$("#score").text(score);
+$("#timer").text(time);
+$("#stop").prop("disabled", true)
+$(".begin").prop("disabled", false)
+$("#scores").empty();
 
-//I'm replacing all that which is below with a simple location.reload, this way the scores
-//list will be updated
+showScores();
 
-// $("img").attr("src", "hole.png");
-// $("#score").text(score);
-// $("#timer").text(time);
-// $("#stop").prop("disabled", true)
-// $(".begin").prop("disabled", false)
-
-location.reload();
 }
 
 //having the event listener for the stop function spawned here

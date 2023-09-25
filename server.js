@@ -46,8 +46,8 @@ await Scores.find({}).sort({_id: -1}).limit(5).then((data) => res.json(data));
 
 async function addScore(data){
 
-//okay, this works.  Good.  Great.  But you have to refresh the page before you
-//see the new score.  That's something I should solve in the script file, though, methinks
+//this isn't firing any more. What?
+console.log("function firing");
 
 let newScore = new Scores({
 	player: data.playerName,
