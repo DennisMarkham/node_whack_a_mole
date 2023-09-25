@@ -52,7 +52,7 @@ clearInterval(timeInterval)
 //now, before the everything resets, it somehow needs to ask the player for a username, and pass
 //score and time data in somme sort of function.
 
-let newPlayer = prompt("You scored" + score + " points in " + time + " seconds, or " + (score/time).toFixed(2) + " points per second." +  
+let newPlayer = prompt("You scored " + score + " points in " + time + " seconds, or " + (score/time).toFixed(2) + " points per second." +  
 	"Enter your name if you would like to post your score.")
 
 console.log(newPlayer);
@@ -69,11 +69,12 @@ if (newPlayer != null){
 	$.post("/newScore", scoreData)
 }
 
-
-
-//Okay, weird, there's a bug that causes the post not to fire if I have this location.reload.  This was 
-//supposed to be my solution to get scores to update automatically but its not working.
-//location.reload();
+//now if you hit cancel, for some reason a double list shows up.  Why?  Why would that be?
+//wait, its not if you hit cancel on the first time, its if you hit cancel on the second time
+//wait, no again, its if you decide to hit cancel the second time the message pops up.
+//okay, each time the message pops up one more time, why would this happen.
+//the prompt is triggered by the cease and eval function.  So after registering your score
+//once, it makes this fire more than once.
 
 score = 0;
 time = 0;
@@ -88,7 +89,9 @@ showScores();
 
 }
 
-//having the event listener for the stop function spawned here
+
+//if I don't use this "off" thing the event handlers start stacking
+$("#stop").off("click");
 $("#stop").click(function(){
 cease_and_eval()
 });
