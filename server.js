@@ -22,16 +22,20 @@ app.post("/newScore", function(req, res){
 	addScore(req.body);
 })
 
+const schema = new mongoose.Schema({
+	player: String,
+	score: Number,
+	time: Number,
+	sps: Number
+});
+
+const Scores = mongoose.model("Score", schema);
+
 app.get("/showScores", function(req, res){
 
 showScores();
 
 async function showScores(){
-
-
-const schema = new mongoose.Schema({player: String});
-
-const Scores = mongoose.model("Score", schema);
 
 //let newScores = new Score({player: data.username})
 
@@ -41,14 +45,16 @@ await Scores.find({}).then((data) => res.json(data));
 })
 
 async function addScore(data){
-//okay, using the form element to add score, though, I don't think that will work in the long run
-//because we need some way to fetch the time and score variables.  We'll need some kind of script
 
-const schema = new mongoose.Schema({player: String});
+//okay, this works.  Good.  Great.  But you have to refresh the page before you
+//see the new score.  That's something I should solve in the script file, though, methinks
 
-const Score = mongoose.model("Score", schema);
-
-let newScore = new Score({player: data.username})
+let newScore = new Scores({
+	player: data.playerName,
+	score: data.score,
+	time: data.time,
+	sps: (data.score/data.time).toFixed(2)
+							})
 
 await newScore.save();
 

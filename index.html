@@ -42,7 +42,7 @@ score:<span id = "score">0</span>
 		$.get("/showScores", function(data){
            for (let x in data)
 			{
-				$("#scores").append(data[x].player);
+				$("#scores").append("<br>Player Name: " + data[x].player + "<br>Score: " + data[x].score + "<br>Time: " + data[x].time + "<br>SPS: " + data[x].sps + "<br>");
 			}
 		})
 	}

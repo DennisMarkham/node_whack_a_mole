@@ -1,17 +1,19 @@
+ 
+let time = 0;
+let score = 0;
 
-//knowing how to beign the game is easy enough, but how do we steop it.  
 function beginGame(){
 
-let time = 0;
-const timeInterval = setInterval(add2time, 1000);
-
-function add2time()
+	function add2time()
 {
 	time += 1;
 	$("#timer").text(time);
 }
 
-let score = 0;
+const timeInterval = setInterval(add2time, 1000);
+
+
+
 const hit = new Audio("hit.flac");
 const miss = new Audio("miss.mp3");
 $(".begin").prop("disabled", true);
@@ -36,31 +38,49 @@ document.getElementById("im" + moleSpot).setAttribute("src", "mole.png");
 const moleMovingInterval = setInterval(moveMole, 1000);
 
 
-//I'm putting the stoping function inside the beginGame function
+//I'm putting the stoping function inside the beginGame function.  Otherwise it doesn't recognize
+//the intervals.
 function cease_and_eval(){
 
-alert("You scored " + score + " points in " + time + " seconds, or " + (score/time).toFixed(4) + " points per second.")
-
-//THIS IS WHERE YOUR NEW CODE STARvar x = screen.width / 2 - 500 / 2;
-        var x = screen.width / 2 - 500 / 2;
-        var y = screen.height / 2 - 350 / 2;
-
-window.open("/score.html", "__blank", 'height=385,width=500,left=' + x + ',top=' + y)
-
-//*****
 
 
 	//this is the ceasing
 	console.log("this function is firing")
 clearInterval(moleMovingInterval);
 clearInterval(timeInterval)
+
+//now, before the everything resets, it somehow needs to ask the player for a username, and pass
+//score and time data in somme sort of function.
+
+let newPlayer = prompt("You scored" + score + " points in " + time + " seconds, or " + (score/time).toFixed(2) + " points per second." +  
+	"Enter your name if you would like to post your score.")
+
+console.log(newPlayer);
+
+let scoreData = 
+{
+playerName: newPlayer,
+score: score,
+time: time
+}
+
+if (newPlayer != null){
+	$.post("/newScore", scoreData)
+}
+
 score = 0;
 time = 0;
-$("img").attr("src", "hole.png");
-$("#score").text(score);
-$("#timer").text(time);
-$("#stop").prop("disabled", true)
-$(".begin").prop("disabled", false)
+
+//I'm replacing all that which is below with a simple location.reload, this way the scores
+//list will be updated
+
+// $("img").attr("src", "hole.png");
+// $("#score").text(score);
+// $("#timer").text(time);
+// $("#stop").prop("disabled", true)
+// $(".begin").prop("disabled", false)
+
+location.reload();
 }
 
 //having the event listener for the stop function spawned here
@@ -90,5 +110,6 @@ $("img").click(function()
 		miss.play()
 	}
 })
+
 
 }

@@ -1,10 +1,11 @@
-<head></head>
+<head><script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+<script src = "script.js"></script></head>
 <body>
 	<!-- So rather than a form here, we're eventually going to need the window the trigger some kind of script that accesses the post method, and also picks up the test and score variables.  That's going to be a real challenge-->
-	<form form action = "/newScore" method= "POST">
+
 	Would you like to add your score?
-	Name: <input type = "text" name = "username">
+	Name: <input type = "text" id = "username">
 	<br>
-	<input type ="submit" value = "Add Score"><button onClick = "window.close()">Cancel</button>
-</form>
+	<button onClick = "windowAddScore()">Add Score</button><button onClick = "window.close()">Cancel</button>
+
 </body>
